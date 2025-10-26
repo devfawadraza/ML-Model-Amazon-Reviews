@@ -36,6 +36,7 @@ df['label'] = df['label'].astype(int)
 df = df[df['label'].isin([1, 2])]
 
 
+
 # 👇 Add this to inspect your text column before cleaning
 # print("Sample text values before cleaning:")
 # print(df['text'].head(10))
@@ -70,27 +71,6 @@ def clean_text(text):
     words = text.split()
     words = [lemmatizer.lemmatize(w) for w in words if w not in stop_words]
     return " ".join(words)
-
-# def clean_text(text):
-#     text = text.lower()
-#     text = re.sub(r"http\S+|www\S+", "", text)  # remove URLs
-#     text = re.sub(r"[^a-z\s]", "", text)        # keep only letters
-#     text = text.translate(str.maketrans("", "", string.punctuation))
-#     text = " ".join([word for word in text.split() if word not in stopwords.words('english')])
-#     return text
-
-# # ✅ Apply cleaning properly
-# df['cleaned_text'] = df['text'].apply(clean_text)
-
-# print("After cleaning:", len(df))
-# # print(df['cleaned_text'].head(10))
-
-
-# def clean_text(text):
-#     text = re.sub(r"https\S+", "", text)
-#     text = re.sub(r"[^a-zA-Z\s]", "", text)
-#     text = text.lower().strip()
-#     return text
 
 df['cleaned_text'] = df['text'].apply(clean_text)
 print("Text cleaned....")
@@ -137,14 +117,6 @@ print("Starting Hyperparameter tuning...")
 grid.fit(X_train_vec, y_train)
 print("Best Hyperparameter:", grid.best_params_)
 
-# model = LogisticRegression(
-#     max_iter=500,
-#     solver='saga',
-#     C=2.0,             # less regularization → learns more
-#     penalty='l2',
-#     n_jobs=-1,
-#     verbose=1
-# )
 
 # =============train final model============
 model = grid.best_estimator_
