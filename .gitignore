@@ -5,8 +5,6 @@ venv/
 env/
 .venv/
 .env
-*.pkl
-*.joblib
 *.h5
 *.csv
 *.xlsx
